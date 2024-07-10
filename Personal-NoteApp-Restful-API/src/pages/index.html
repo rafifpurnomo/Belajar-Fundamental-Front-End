@@ -15,11 +15,17 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.min.css"
     />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   </head>
   <body>
+    <custom-loading></custom-loading>
     <div class="container-judul">
       <h1 class="judul">Personal note app</h1>
-      <h2 class="by">by rafifpurnomo</h2>
+      <h2>
+        <a href="" class="by" data-period="2000" data-type='[ "Hello World!!!!", "Hi, im rafifpurnomo.", "Wellcome.", "This is my Personal Note-App." ]'>
+          <span class="wrap"></span>
+        </a>
+      </h2>
     </div>
     <div class="container-form">
       <form action="" id="formTambahCatatan">
@@ -45,8 +51,9 @@
       </form>
     </div>
 
-    <h1 class="daftarCatatan-container-title">Daftar Catatan anda</h1>
-    <div class="daftarCatatan-container" id="daftarCatatan-container"></div>
+    <div class="mt"></div>
+    <h1 class="daftarCatatan-container-title" data-aos="fade-down">Daftar Catatan anda</h1>
+    <div class="daftarCatatan-container" id="daftarCatatan-container" ></div>
     <div class="mb"></div>
 
     <template id="catatan-item-template">
@@ -78,17 +85,45 @@
           font-size: 16px;
         }
 
-        .daftar-catatan > .arsip-button {
+        .btnGroup{
+          display: flex;
+          gap: 30px;
+        }
+        
+        .arsip-button {
           width: 100px;
           height: 35px;
           margin-top: 10px;
           border-radius: 5px;
-          border: 2px solid black;
+          border: 2px solid transparent;
           background-color: #76abae;
           color: white;
           cursor: pointer;
           align-self: center;
           text-align: center;
+        }
+
+        .arsip-button:hover {
+          background-color: grey;
+          transition: ease-in-out 0.1s;
+        }
+
+        .delete-button {
+          width: 130px;
+          height: 35px;
+          margin-top: 10px;
+          border-radius: 5px;
+          border: 2px solid transparent;
+          background-color: red;
+          color: white;
+          cursor: pointer;
+          align-self: center;
+          text-align: center;
+        }
+
+        .delete-button:hover {
+          background-color: grey;
+          transition: ease-in-out 0.1s;
         }
       </style>
 
@@ -98,17 +133,21 @@
           <custom-isi class="isi-catatan"></custom-isi>
         </div>
         <custom-datetime class="date-time"></custom-datetime>
-        <button type="button" class="arsip-button">Arsipkan</button>
+        <div class="btnGroup">
+          <button type="button" class="arsip-button" id="arsip-button">Arsipkan</button>
+          <button type="button" class="delete-button" id="hapus-catatan">Hapus Catatan</button>
+        </div>
       </div>
     </template>
 
-    <h1 class="ArsipCatatan-container-title">Arsip Catatan anda</h1>
+    <h1 class="ArsipCatatan-container-title" data-aos="fade-down">Arsip Catatan anda</h1>
     <div class="ArsipCatatan-container" id="ArsipCatatan-container"></div>
     <div class="mb"></div>
     <template id="catatan-arsip-template">
       <style>
-        .daftar-catatan {
+        .daftar-arsip {
           display: flex;
+          color: gray;
           border: 2px solid grey;
           border-radius: 10px;
           width: 300px;
@@ -118,47 +157,85 @@
           justify-content: space-around;
         }
 
-        .daftar-catatan > .h1 {
+        .daftar-arsip > .h1 {
           font-size: 20px;
           text-align: center;
           margin: 0px 0px 0px 0px;
         }
 
-        .daftar-catatan > .isi-catatan {
+        .daftar-arsip > .isi-catatan {
           margin: 0px 0px 0px 0px;
           font-size: 16px;
         }
 
-        .daftar-catatan > .date-time {
+        .daftar-arsip > .date-time {
           margin: 0px 0px 0px 0px;
           font-size: 16px;
         }
 
-        .daftar-catatan > .archive-button {
+        .btnGroup{
+          display: flex;
+          gap: 30px;
+        }
+
+        .tampilkan-button {
           width: 100px;
           height: 35px;
           margin-top: 10px;
           border-radius: 5px;
-          border: 2px solid black;
-          background-color: #76abae;
+          border: 2px solid transparent;
+          background-color: grey;
           color: white;
           cursor: pointer;
           align-self: center;
           text-align: center;
         }
+
+        .tampilkan-button:hover {
+          background-color: #76abae;
+          transition: ease-in-out 0.1s;
+        }
+
+        .delete-button {
+          width: 130px;
+          height: 35px;
+          margin-top: 10px;
+          border-radius: 5px;
+          border: 2px solid transparent;
+          background-color: red;
+          color: white;
+          cursor: pointer;
+          align-self: center;
+          text-align: center;
+        }
+
+        .delete-button:hover {
+          background-color: grey;
+          transition: ease-in-out 0.1s;
+        }
       </style>
 
-      <div class="daftar-catatan-arsip">
+      <div class="daftar-arsip">
         <div>
           <custom-judul class="h1"></custom-judul>
           <custom-isi class="isi-catatan"></custom-isi>
         </div>
         <custom-datetime class="date-time"></custom-datetime>
-        <button class="archive-button">Arsipkan</button>
+        <div class="btnGroup">
+          <button type="button" class="tampilkan-button" id="tampilkan-button">Tampilkan</button>
+          <button type="button" class="delete-button" id="delete-button">Hapus Catatan</button>
+        </div>
+      </div>
       </div>
     </template>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.all.min.js"></script>
     <script src="../js/index.js"></script>
+    <!-- animated on scroll library start -->
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+            <script>
+                AOS.init();
+        </script>
+    <!-- animated on scroll library end -->
   </body>
 </html>

@@ -7,12 +7,18 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
+custom-loading {
+  display: none;
+}
+
 .container-judul {
   display: flex;
   flex-direction: column;
   text-align: center;
   text-transform: capitalize;
 }
+
+
 
 .container-judul > .judul {
   margin-bottom: 0px;
@@ -22,6 +28,15 @@ body {
   margin: 0px;
   font-size: 10px;
   padding: 0px;
+}
+
+.by{
+  margin: 0px;
+  font-size: 20px;
+  padding: 0px;
+  color: white;
+  text-decoration: none;
+  font-family: "Poppins", sans-serif;
 }
 
 .container-form {
@@ -95,6 +110,9 @@ form {
   grid-gap: 10px;
 }
 
+.mt{
+  margin-top: 200px;
+}
 
 .mb {
     margin-bottom: 100px;
